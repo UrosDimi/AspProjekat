@@ -1,4 +1,5 @@
 ﻿using Implementation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjekatAsp.Application.UseCases.Commands;
 using ProjekatAsp.Application.UseCases.DTO;
@@ -10,6 +11,9 @@ using System;
 
 namespace ShopProjekat.Api.Controllers
 {
+
+
+
     [Route("api/[controller]")]
     [ApiController]
     public class CategoriesController : ControllerBase
@@ -40,16 +44,11 @@ namespace ShopProjekat.Api.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] CreateCategoryDto dto,[FromServices] ICreateCategoryCommand command)
         {
-            try
-            {
+
                 _handler.HandleCommand(command, dto);
 
                 return StatusCode(201);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { error = ex.Message });
-            }
+
         }
 
         // PUT api/<CategoriesController>/5

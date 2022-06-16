@@ -1,4 +1,5 @@
 using Implementation;
+using Implementation.Emails;
 using Implementation.Logging;
 using Implementation.UseCases.Commands;
 using Microsoft.AspNetCore.Builder;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using ProjekatAsp.Application.Emails;
 using ProjekatAsp.Application.UseCases;
 using ProjekatAsp.Application.UseCases.Commands;
 using ShopProjekat.Api.Core;
@@ -44,11 +46,19 @@ namespace ShopProjekat.Api
             services.AddApplicationUser();
             services.AddSingleton(settings);
             services.AddJwt(settings);
-            services.AddVezbeDbContext();
+            services.AddShopContext();
             services.AddUseCases();
 
             services.AddTransient<IUseCaseLogger>(x => new SpUseCaseLogger(settings.ConnString));
             services.AddTransient<UseCaseHandler>();
+
+            services.AddTransient<IEmailSender>(x =>
+                    new SmtpEmailSender(settings.EmailOptions.FromEmail,
+                                        settings.EmailOptions.Password,
+                                        settings.EmailOptions.Port,
+                                        settings.EmailOptions.Host));
+
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ShopProjekat.Api", Version = "v1" });
@@ -70,7 +80,14 @@ namespace ShopProjekat.Api
 
             app.UseRouting();
 
+            app.UseMiddleware<GlobalExceptionHandler>();
+
+            app.UseAuthentication();
+            
             app.UseAuthorization();
+
+            app.UseStaticFiles();
+
 
             app.UseEndpoints(endpoints =>
             {

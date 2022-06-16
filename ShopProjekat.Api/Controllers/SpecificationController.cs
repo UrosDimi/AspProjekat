@@ -7,13 +7,10 @@ namespace ShopProjekat.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SpecificationController : ControllerBase
+    public class SpecificationController : OwnController
     {
-        private UseCaseHandler _useCaseHandler;
-
-        public SpecificationController(UseCaseHandler useCaseHandler)
+        public SpecificationController(UseCaseHandler handler) : base(handler)
         {
-            _useCaseHandler = useCaseHandler;
         }
 
         // GET: api/<SpecificationController>
@@ -22,7 +19,7 @@ namespace ShopProjekat.Api.Controllers
         [HttpGet]
         public IActionResult Get([FromQuery] BaseSearch search,[FromServices] IGetSpecificationsQuery query)
         {
-            return Ok(_useCaseHandler.HandleQuery(query, search));
+            return Ok(_handler.HandleQuery(query, search));
         }
 
         // GET api/<SpecificationController>/5

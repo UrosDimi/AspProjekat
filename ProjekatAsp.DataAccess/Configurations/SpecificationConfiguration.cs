@@ -20,10 +20,12 @@ namespace ProjekatAsp.DataAccess.Configurations
 
             builder.HasMany(x=>x.AvailableDatas)
                    .WithOne(x=>x.Specification)
+                   .HasForeignKey(x=>x.Specification_id)
                    .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasMany(x=>x.ProductSpecifications)
                    .WithOne(x=>x.Specification)
+                   .HasForeignKey(x=>x.Specification_id)
                    .OnDelete(DeleteBehavior.Cascade);
 
 

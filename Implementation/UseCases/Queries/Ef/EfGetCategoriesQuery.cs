@@ -47,15 +47,20 @@ namespace Implementation.UseCases.Queries.Ef
 
 
             var response = new PagedResponse<CategoryDto>();
+
             response.TotalCount = query.Count();
+
+
             response.Data = query.Skip(toSkip).Take(search.PerPage.Value).Select(x => new CategoryDto
             {
                 Name = x.Name,
                 Id = x.Id
             }).ToList();
+
+
             response.CurrentPage = search.Page.Value;
+
             response.ItemsPerPage = search.PerPage.Value;
-            //return query.Select(
 
             return response;
         }

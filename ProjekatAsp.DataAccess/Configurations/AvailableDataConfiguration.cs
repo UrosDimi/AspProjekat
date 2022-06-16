@@ -20,6 +20,7 @@ namespace ProjekatAsp.DataAccess.Configurations
 
             builder.HasMany(x => x.ProductSpecification)
                    .WithOne(x => x.AvailableData)
+                   .HasForeignKey(x=>x.AvailableData_id)
                    .OnDelete(DeleteBehavior.Restrict);
         }
     }

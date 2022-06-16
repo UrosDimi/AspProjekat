@@ -17,5 +17,7 @@ namespace ProjekatAsp.Domain
         public string Email { get; set; }
 
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+        public ICollection<Cart> Carts { get; set; } = new List<Cart>();
+        public ICollection<UserUseCase> UserUseCases { get; set; } = new List<UserUseCase>();
     }
 }

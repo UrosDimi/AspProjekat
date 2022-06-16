@@ -16,7 +16,7 @@ namespace ShopProjekat.Api.Core
     {
         public string Identity => "Anonymous";
         public int Id => 0;
-        public IEnumerable<int> UseCaseIds => new List<int> { 4 };
+        public IEnumerable<int> UseCaseIds => new List<int> { 1,2,3,4,5,6,7,8,10,11,12, 13 };
         public string Email => "anonimous@asp-api.com";
     }
 }

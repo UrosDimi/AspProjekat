@@ -71,18 +71,18 @@ namespace ProjekatAsp.DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     IsSuperUser = table.Column<bool>(type: "bit", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeletedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    UpdatedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -154,24 +154,23 @@ namespace ProjekatAsp.DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    price = table.Column<decimal>(type: "decimal(18,2)", maxLength: 5, nullable: false),
                     Product_id = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: true),
                     DateFrom = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateTo = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeletedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    UpdatedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Prices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Prices_Products_ProductId",
-                        column: x => x.ProductId,
+                        name: "FK_Prices_Products_Product_id",
+                        column: x => x.Product_id,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -185,7 +184,6 @@ namespace ProjekatAsp.DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Specification_id = table.Column<int>(type: "int", nullable: false),
-                    SpecificationId = table.Column<int>(type: "int", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -197,8 +195,8 @@ namespace ProjekatAsp.DataAccess.Migrations
                 {
                     table.PrimaryKey("PK_AvailableDatas", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AvailableDatas_Specification_SpecificationId",
-                        column: x => x.SpecificationId,
+                        name: "FK_AvailableDatas_Specification_Specification_id",
+                        column: x => x.Specification_id,
                         principalTable: "Specification",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -210,23 +208,22 @@ namespace ProjekatAsp.DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", maxLength: 10, nullable: false),
                     User_id = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: true),
                     DateAndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeletedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    UpdatedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Carts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Carts_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Carts_Users_User_id",
+                        column: x => x.User_id,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -238,26 +235,25 @@ namespace ProjekatAsp.DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Comments = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Comments = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Parent_comment_id = table.Column<int>(type: "int", nullable: true),
                     Product_id = table.Column<int>(type: "int", nullable: false),
                     User_id = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: true),
-                    Parent_commentId = table.Column<int>(type: "int", nullable: true),
                     ProductId = table.Column<int>(type: "int", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeletedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    UpdatedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comments_Comments_Parent_commentId",
-                        column: x => x.Parent_commentId,
+                        name: "FK_Comments_Comments_Parent_comment_id",
+                        column: x => x.Parent_comment_id,
                         principalTable: "Comments",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -268,7 +264,25 @@ namespace ProjekatAsp.DataAccess.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Comments_Users_UserId",
+                        name: "FK_Comments_Users_User_id",
+                        column: x => x.User_id,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserUseCase",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserCaseId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserUseCase", x => new { x.UserId, x.UserCaseId });
+                    table.ForeignKey(
+                        name: "FK_UserUseCase_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -333,9 +347,6 @@ namespace ProjekatAsp.DataAccess.Migrations
                     Specification_id = table.Column<int>(type: "int", nullable: false),
                     AvailableData_id = table.Column<int>(type: "int", nullable: false),
                     Product_id = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: true),
-                    SpecificationId = table.Column<int>(type: "int", nullable: true),
-                    AvailableDataId = table.Column<int>(type: "int", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -347,20 +358,20 @@ namespace ProjekatAsp.DataAccess.Migrations
                 {
                     table.PrimaryKey("PK_ProductSpecifications", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductSpecifications_AvailableDatas_AvailableDataId",
-                        column: x => x.AvailableDataId,
+                        name: "FK_ProductSpecifications_AvailableDatas_AvailableData_id",
+                        column: x => x.AvailableData_id,
                         principalTable: "AvailableDatas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ProductSpecifications_Products_ProductId",
-                        column: x => x.ProductId,
+                        name: "FK_ProductSpecifications_Products_Product_id",
+                        column: x => x.Product_id,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductSpecifications_Specification_SpecificationId",
-                        column: x => x.SpecificationId,
+                        name: "FK_ProductSpecifications_Specification_Specification_id",
+                        column: x => x.Specification_id,
                         principalTable: "Specification",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -402,14 +413,14 @@ namespace ProjekatAsp.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AvailableDatas_SpecificationId",
+                name: "IX_AvailableDatas_Specification_id",
                 table: "AvailableDatas",
-                column: "SpecificationId");
+                column: "Specification_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Carts_UserId",
+                name: "IX_Carts_User_id",
                 table: "Carts",
-                column: "UserId");
+                column: "User_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Categories_Desc",
@@ -442,9 +453,9 @@ namespace ProjekatAsp.DataAccess.Migrations
                 column: "SpecificationsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_Parent_commentId",
+                name: "IX_Comments_Parent_comment_id",
                 table: "Comments",
-                column: "Parent_commentId");
+                column: "Parent_comment_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_ProductId",
@@ -452,9 +463,14 @@ namespace ProjekatAsp.DataAccess.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_UserId",
+                name: "IX_Comments_Title",
                 table: "Comments",
-                column: "UserId");
+                column: "Title");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_User_id",
+                table: "Comments",
+                column: "User_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ImageProduct_ProductsId",
@@ -462,9 +478,9 @@ namespace ProjekatAsp.DataAccess.Migrations
                 column: "ProductsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Prices_ProductId",
+                name: "IX_Prices_Product_id",
                 table: "Prices",
-                column: "ProductId");
+                column: "Product_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_Name",
@@ -482,19 +498,19 @@ namespace ProjekatAsp.DataAccess.Migrations
                 column: "Product_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductSpecifications_AvailableDataId",
+                name: "IX_ProductSpecifications_AvailableData_id",
                 table: "ProductSpecifications",
-                column: "AvailableDataId");
+                column: "AvailableData_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductSpecifications_ProductId",
+                name: "IX_ProductSpecifications_Product_id",
                 table: "ProductSpecifications",
-                column: "ProductId");
+                column: "Product_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductSpecifications_SpecificationId",
+                name: "IX_ProductSpecifications_Specification_id",
                 table: "ProductSpecifications",
-                column: "SpecificationId");
+                column: "Specification_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Specification_Name",
@@ -524,6 +540,9 @@ namespace ProjekatAsp.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "ProductSpecifications");
+
+            migrationBuilder.DropTable(
+                name: "UserUseCase");
 
             migrationBuilder.DropTable(
                 name: "Categories");

@@ -1,2 +1,0 @@
-﻿U ovom sloju se prave Entiteti, i on ne treba da zavisi ni od cega (bez ikakvog sloja zavisnosti)
-

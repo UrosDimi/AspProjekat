@@ -91,9 +91,6 @@ namespace ProjekatAsp.DataAccess.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<int?>("SpecificationId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Specification_id")
                         .HasColumnType("int");
 
@@ -106,7 +103,7 @@ namespace ProjekatAsp.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SpecificationId");
+                    b.HasIndex("Specification_id");
 
                     b.ToTable("AvailableDatas");
                 });
@@ -128,29 +125,31 @@ namespace ProjekatAsp.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.Property<decimal>("TotalPrice")
+                        .HasMaxLength(10)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("User_id")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("User_id");
 
                     b.ToTable("Carts");
                 });
@@ -224,7 +223,9 @@ namespace ProjekatAsp.DataAccess.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Comments")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -233,13 +234,13 @@ namespace ProjekatAsp.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Parent_commentId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.Property<int?>("Parent_comment_id")
                         .HasColumnType("int");
@@ -250,25 +251,30 @@ namespace ProjekatAsp.DataAccess.Migrations
                     b.Property<int>("Product_id")
                         .HasColumnType("int");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("User_id")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Parent_commentId");
+                    b.HasIndex("Parent_comment_id");
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("Title");
+
+                    b.HasIndex("User_id");
 
                     b.ToTable("Comments");
                 });
@@ -326,13 +332,13 @@ namespace ProjekatAsp.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.Property<int>("Product_id")
                         .HasColumnType("int");
@@ -341,14 +347,16 @@ namespace ProjekatAsp.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<decimal>("price")
+                        .HasMaxLength(5)
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("Product_id");
 
                     b.ToTable("Prices");
                 });
@@ -406,9 +414,6 @@ namespace ProjekatAsp.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AvailableDataId")
-                        .HasColumnType("int");
-
                     b.Property<int>("AvailableData_id")
                         .HasColumnType("int");
 
@@ -427,13 +432,7 @@ namespace ProjekatAsp.DataAccess.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(true);
 
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Product_id")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SpecificationId")
                         .HasColumnType("int");
 
                     b.Property<int>("Specification_id")
@@ -453,11 +452,11 @@ namespace ProjekatAsp.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AvailableDataId");
+                    b.HasIndex("AvailableData_id");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("Product_id");
 
-                    b.HasIndex("SpecificationId");
+                    b.HasIndex("Specification_id");
 
                     b.ToTable("ProductSpecifications");
                 });
@@ -574,38 +573,65 @@ namespace ProjekatAsp.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.Property<bool>("IsSuperUser")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("ProjekatAsp.Domain.UserUseCase", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserCaseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "UserCaseId");
+
+                    b.ToTable("UserUseCase");
                 });
 
             modelBuilder.Entity("CategoryProduct", b =>
@@ -657,8 +683,9 @@ namespace ProjekatAsp.DataAccess.Migrations
                 {
                     b.HasOne("ProjekatAsp.Domain.Specification", "Specification")
                         .WithMany("AvailableDatas")
-                        .HasForeignKey("SpecificationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("Specification_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Specification");
                 });
@@ -666,8 +693,10 @@ namespace ProjekatAsp.DataAccess.Migrations
             modelBuilder.Entity("ProjekatAsp.Domain.Cart", b =>
                 {
                     b.HasOne("ProjekatAsp.Domain.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .WithMany("Carts")
+                        .HasForeignKey("User_id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -691,8 +720,9 @@ namespace ProjekatAsp.DataAccess.Migrations
             modelBuilder.Entity("ProjekatAsp.Domain.Comment", b =>
                 {
                     b.HasOne("ProjekatAsp.Domain.Comment", "Parent_comment")
-                        .WithMany()
-                        .HasForeignKey("Parent_commentId");
+                        .WithMany("Child_comments")
+                        .HasForeignKey("Parent_comment_id")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("ProjekatAsp.Domain.Product", "Product")
                         .WithMany("Comments")
@@ -700,7 +730,9 @@ namespace ProjekatAsp.DataAccess.Migrations
 
                     b.HasOne("ProjekatAsp.Domain.User", "User")
                         .WithMany("Comments")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("User_id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Parent_comment");
 
@@ -712,8 +744,10 @@ namespace ProjekatAsp.DataAccess.Migrations
             modelBuilder.Entity("ProjekatAsp.Domain.Price", b =>
                 {
                     b.HasOne("ProjekatAsp.Domain.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
+                        .WithMany("ProductsPrice")
+                        .HasForeignKey("Product_id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Product");
                 });
@@ -722,18 +756,21 @@ namespace ProjekatAsp.DataAccess.Migrations
                 {
                     b.HasOne("ProjekatAsp.Domain.AvailableData", "AvailableData")
                         .WithMany("ProductSpecification")
-                        .HasForeignKey("AvailableDataId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("AvailableData_id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("ProjekatAsp.Domain.Product", "Product")
                         .WithMany("ProductSpecifications")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("Product_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ProjekatAsp.Domain.Specification", "Specification")
                         .WithMany("ProductSpecifications")
-                        .HasForeignKey("SpecificationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("Specification_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("AvailableData");
 
@@ -761,6 +798,17 @@ namespace ProjekatAsp.DataAccess.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("ProjekatAsp.Domain.UserUseCase", b =>
+                {
+                    b.HasOne("ProjekatAsp.Domain.User", "User")
+                        .WithMany("UserUseCases")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("ProjekatAsp.Domain.AvailableData", b =>
                 {
                     b.Navigation("ProductSpecification");
@@ -776,6 +824,11 @@ namespace ProjekatAsp.DataAccess.Migrations
                     b.Navigation("Child_categories");
                 });
 
+            modelBuilder.Entity("ProjekatAsp.Domain.Comment", b =>
+                {
+                    b.Navigation("Child_comments");
+                });
+
             modelBuilder.Entity("ProjekatAsp.Domain.Product", b =>
                 {
                     b.Navigation("Comments");
@@ -783,6 +836,8 @@ namespace ProjekatAsp.DataAccess.Migrations
                     b.Navigation("ProductsCarts");
 
                     b.Navigation("ProductSpecifications");
+
+                    b.Navigation("ProductsPrice");
                 });
 
             modelBuilder.Entity("ProjekatAsp.Domain.Specification", b =>
@@ -794,7 +849,11 @@ namespace ProjekatAsp.DataAccess.Migrations
 
             modelBuilder.Entity("ProjekatAsp.Domain.User", b =>
                 {
+                    b.Navigation("Carts");
+
                     b.Navigation("Comments");
+
+                    b.Navigation("UserUseCases");
                 });
 #pragma warning restore 612, 618
         }

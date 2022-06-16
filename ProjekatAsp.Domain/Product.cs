@@ -18,5 +18,6 @@ namespace ProjekatAsp.Domain
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
         public ICollection<ProductSpecification> ProductSpecifications { get; set; } = new List<ProductSpecification>();
         public ICollection<ProductsCart> ProductsCarts { get; set; } = new List<ProductsCart>();
+        public ICollection<Price> ProductsPrice { get; set; } = new List<Price>();
     }
 }

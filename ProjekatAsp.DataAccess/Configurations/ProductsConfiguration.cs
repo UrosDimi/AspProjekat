@@ -23,6 +23,7 @@ namespace ProjekatAsp.DataAccess.Configurations
 
             builder.HasMany(x=>x.ProductSpecifications)
                     .WithOne(x=>x.Product)
+                    .HasForeignKey(x=>x.Product_id)
                     .OnDelete(DeleteBehavior.Cascade);
 
 

@@ -29,7 +29,7 @@ namespace Implementation
         {
             try
             {
-                //HandleLoggingAndAuthorization(command, data);
+                HandleLoggingAndAuthorization(command, data);
 
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
@@ -93,66 +93,5 @@ namespace Implementation
             }
         }
     }
-
-    //public interface IProcessor<T>
-    //{
-    //    void Execute(T data);
-    //}
-
-
-    //public class ProcessorDecorator : IProcessor<IUseCase>
-    //{
-    //    private IProcessor<IUseCase> _process;
-
-    //    public ProcessorDecorator(IProcessor<IUseCase> useCase)
-    //    {
-    //        _process = useCase;
-    //    }
-
-    //    public virtual void Execute(IUseCase data)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-    //}
-
-
-    //public class ProcessorHandleQueryDecorator : ProcessorDecorator
-    //{
-    //    private IExceptionLogger _logger;
-    //    public ProcessorHandleQueryDecorator(IProcessor<IUseCase> useCase) : base(useCase)
-    //    {
-    //    }
-
-    //    public override void Execute(IUseCase data)
-    //    {
-    //        var stopwatch = new Stopwatch();
-    //        stopwatch.Start();
-
-    //        base.Execute(data);
-
-    //        stopwatch.Stop();
-
-    //    }
-
-    //}
-
-    //public class ProcessorHandleCommandDecorator : ProcessorDecorator
-    //{
-    //    public ProcessorHandleCommandDecorator(IProcessor<IUseCase> useCase) : base(useCase)
-    //    {
-    //    }
-
-    //    public override void Execute(IUseCase data)
-    //    {
-    //        var stopwatch = new Stopwatch();
-    //        stopwatch.Start();
-
-    //        base.Execute(data);
-
-    //        stopwatch.Stop();
-
-    //    }
-
-    //}
 
 }

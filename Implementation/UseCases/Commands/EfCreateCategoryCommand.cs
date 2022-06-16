@@ -32,7 +32,7 @@ namespace Implementation.UseCases.Commands
         public void Execute(CreateCategoryDto request)
         {
             _validator.ValidateAndThrow(request);
-
+             
             var category = new Category
             {
                 Name = request.Name,

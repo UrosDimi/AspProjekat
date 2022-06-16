@@ -15,14 +15,13 @@ namespace ProjekatAsp.DataAccess
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
-
+            modelBuilder.Entity<UserUseCase>().HasKey(x => new { x.UserId, x.UserCaseId });
             base.OnModelCreating(modelBuilder);
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
             optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-S8HRDVP;Initial Catalog=ShopProjekat;Integrated Security=True");
-                            //.UseLazyLoadingProxies();
         }
 
 
@@ -56,6 +55,8 @@ namespace ProjekatAsp.DataAccess
         public DbSet<AvailableData> AvailableDatas { get; set; }
         public DbSet<Price> Prices { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<UserUseCase> UserUseCase { get; set; }
+        public DbSet<UserUseCase> ImageProduct { get; set; }
 
         public DbSet<User> Users { get; set; }
         public DbSet<ProductsCart> ProductsCarts { get; set; }

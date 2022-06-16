@@ -16,6 +16,8 @@ using Implementation.UseCases.Commands;
 using Implementation.Validators;
 using ProjekatAsp.Application.Logging;
 using Implementation.Logging;
+using Implementation.UseCases.Queries.Ef;
+using Newtonsoft.Json;
 
 namespace ShopProjekat.Api.Extensions
 {
@@ -58,11 +60,25 @@ namespace ShopProjekat.Api.Extensions
 
         public static void AddUseCases(this IServiceCollection services)
         {
+            services.AddTransient<IGetCategoriesQuery, EfGetCategoriesQuery>();
             services.AddTransient<ICreateCategoryCommand, EfCreateCategoryCommand>();
             services.AddTransient<IExceptionLogger, ConsoleExceptionLogger>();
+            services.AddTransient<IAddAuthorizedCommand, EfAddAuthorizedCommand>();
+            services.AddTransient<ICreateProductCommand, EfCreateProductCommand>();
+            services.AddTransient<IRegisterUserCommand, EfRegisterUserCommand>();
+            services.AddTransient<IUpdateUserUseCaseCommand, EfUpdateUserUseCasesCommand>();
+            services.AddTransient<IGetProductsQuery, EfGetProdcutsQuery>();
+            services.AddTransient<IAddProductToCartCommand, EfAddProductToCartCommand>();
+            services.AddTransient<IGetCartWithProductsQuery, EfGetCartWithProducts>();
+            services.AddTransient<IAddCommentWithProductsCommand, EfAddCommentWithProductsCommand>();
+            services.AddTransient<IGetCommentWithProductQuery, EfIGetCommentWithProductQuery>();
 
 
             services.AddTransient<CreateCategoryValidator>();
+            services.AddTransient<UpdateUserUseCasesValidator>();
+            services.AddTransient<CreateProductValidator>();
+            services.AddTransient<RegisterUserValidator>();
+            services.AddTransient<CreateCommentValidator>();
         }
 
         public static void AddApplicationUser(this IServiceCollection services)
@@ -85,22 +101,20 @@ namespace ShopProjekat.Api.Extensions
                     Email = claims.FindFirst("Email").Value,
                     Id = Int32.Parse(claims.FindFirst("UserId").Value),
                     Identity = claims.FindFirst("Email").Value,
-                    //UseCaseIds = JsonConvert.DeserializeObject<List<int>>(claims.FindFirst("UseCases").Value)
+                    UseCaseIds = JsonConvert.DeserializeObject<List<int>>(claims.FindFirst("UseCases").Value)
                 };
 
                 return actor;
             });
         }
 
-        public static void AddVezbeDbContext(this IServiceCollection services)
+        public static void AddShopContext(this IServiceCollection services)
         {
             services.AddTransient(x =>
             {
                 var optionsBuilder = new DbContextOptionsBuilder();
 
                 var conString = x.GetService<AppSettings>().ConnString;
-
-                //optionsBuilder.UseSqlServer(conString).UseLazyLoadingProxies();
 
                 var options = optionsBuilder.Options;
 
