@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProjekatAsp.Application.UseCases.Queries
 {
-    public interface IGetCommentWithProductQuery : IQuery<int, ProductWithComments>
+    public interface IGetCommentWithProductQuery : IQuery<int, ProductComm>
     {
     }
 }

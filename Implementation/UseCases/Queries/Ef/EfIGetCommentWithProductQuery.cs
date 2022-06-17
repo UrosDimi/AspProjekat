@@ -24,12 +24,13 @@ namespace Implementation.UseCases.Queries.Ef
 
         public string Description => "Get Comments for this product using Entityframework";
 
-        public ProductWithComments Execute(int search)
+        public ProductComm Execute(int search)
         {
             var commentsProduct=Context.Products
                                         .Where(x=>x.Id==search)
-                                        .Include(x=>x.Comments.Where(x=>x.Parent_comment==null))
+                                        .Include(x=>x.Comments)
                                         .ThenInclude(x=>x.Child_comments)
+                                        .Include(x=>x.ProductsPrice)
                                         .FirstOrDefault();
 
             if (commentsProduct == null)
@@ -39,23 +40,73 @@ namespace Implementation.UseCases.Queries.Ef
 
             commentsProduct.Comments = commentsProduct.Comments.Where(x => x.Parent_comment == null).ToList();
 
-            var productWithCommnets = new CommentStyle
+            //var productWithCommnets = new ProductComm
+            //{
+            //    Id = commentsProduct.Id,
+            //    Description = commentsProduct.Desc,
+            //    name = commentsProduct.Name,
+            //    Comment = commentsProduct.Comments.Select(x => new ProductWithComments
+            //    {
+            //        Id = x.Id,
+            //        Name = x.Title,
+            //        Desc = x.Comments,
+            //        Comment = x.Child_comments.Select(y => new ProductWithComments
+            //        {
+            //            Id=y.Id,
+            //            Desc=y.Comments,
+            //            Name=y.Title,
+
+            //        })
+            //    })
+            //};
+
+
+
+            var productWithCommnets = new ProductComm
             {
                 Id = commentsProduct.Id,
-                Desc = commentsProduct.Desc,
-                Name = commentsProduct.Name,
-                Comment=commentsProduct.Comments.Select(x=> new ProductWithComments
+                Description = commentsProduct.Desc,
+                name = commentsProduct.Name,
+                Comment = commentsProduct.Comments.Select(x => new ProductWithComments
                 {
                     Id = x.Id,
                     Name = x.Title,
-                    Desc =x.Comments
+                    Desc = x.Comments,
+                    Comment = getComments(x.Child_comments)
                 })
             };
 
 
-            //ovde ima problem
-
             return productWithCommnets;
+        }
+
+        public IEnumerable<ProductWithComments> getComments(IEnumerable<Comment> comments)
+        {
+
+            List<Comment> commentsList = comments.ToList();
+            List<ProductWithComments> commentss= new List<ProductWithComments>();
+            if (comments.Any())
+            {
+
+                foreach (var comment in commentsList)
+                {
+                    var com= new ProductWithComments
+                    {
+                        Id = comment.Id,
+                        Desc = comment.Comments,
+                        Name = comment.Title
+                    };
+
+
+                    if (comment.Child_comments.Any())
+                    {
+                        com.Comment = getComments(comment.Child_comments);
+                    }
+                    commentss.Add(com);
+                }
+
+            }
+                return commentss;
         }
     }
 }

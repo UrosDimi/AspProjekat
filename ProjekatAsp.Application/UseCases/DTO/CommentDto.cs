@@ -22,7 +22,16 @@ namespace ProjekatAsp.Application.UseCases.DTO
         public string Title { get; set; }
         public string Comment { get; set; }
 
-        public IEnumerable<CommentStyle> child_comments { get; set; } = new List<CommentStyle>();
+        //public IEnumerable<CommentStyle> child_comments { get; set; } = new List<CommentStyle>();
+    }
+
+    public class ProductComm : BaseDto
+    {
+        public string name { get; set; }
+        public string Description { get; set; }
+        public decimal Price { get; set; }
+        public IEnumerable<ProductWithComments> Comment { get; set; } = new List<ProductWithComments>();
+
     }
 
     public class ProductWithComments : BaseDto
@@ -30,9 +39,11 @@ namespace ProjekatAsp.Application.UseCases.DTO
         public string Name { get; set; }
         public string Desc { get; set; }
 
-    }
-    public class CommentStyle : ProductWithComments
-    {
         public IEnumerable<ProductWithComments> Comment { get; set; } = new List<ProductWithComments>();
+
     }
+    //public class CommentStyle : ProductWithComments
+    //{
+    //    public IEnumerable<ProductWithComments> Comment { get; set; } = new List<ProductWithComments>();
+    //}
 }
